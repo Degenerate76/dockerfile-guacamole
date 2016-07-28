@@ -2,8 +2,8 @@ FROM tomcat:7-jre7
 MAINTAINER Matthias Grüter <matthias@grueter.name>
 
 # To update, check http://guac-dev.org/releases
-ENV GUACAMOLE_VERSION         0.9.4
-ENV GUACAMOLE_WAR_SHA1        07d194593db296d20d87b858b02e7816fb4a9315
+ENV GUACAMOLE_VERSION         0.9.9
+ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
 ENV GUACAMOLE_AUTH_MYSQL_SHA1 a68166aec88784325f3358a16dedc70f2df73342
 ENV MYSQL_CONNECTOR_MD5       ad4c875c719247f8e8c41cd7f0609e00
 
@@ -35,7 +35,7 @@ RUN echo $GUACAMOLE_AUTH_MYSQL_SHA1  guacamole-auth-mysql.tar.gz > guacamole-aut
 
 # Fetch and install MySQL connector
 RUN echo $MYSQL_CONNECTOR_MD5  mysql-connector.tar.gz > mysql-connector.tar.gz.md5 && \
-    curl -L -o mysql-connector.tar.gz http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.34.tar.gz && \
+    curl -L -o mysql-connector.tar.gz http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-6.0.2.tar.gz && \
     md5sum -c --quiet mysql-connector.tar.gz.md5 && \
     tar xzf mysql-connector.tar.gz && \
     mv mysql-connector-java-*/mysql-connector-java-*.jar /guacamole/classpath && \
