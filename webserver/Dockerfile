@@ -1,4 +1,4 @@
-FROM tomcat:7-jre7
+FROM tomcat:9.0.0-jre8
 MAINTAINER Matthias Grüter <matthias@grueter.name>
 
 # To update, check http://guac-dev.org/releases
