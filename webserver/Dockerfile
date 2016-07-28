@@ -4,8 +4,8 @@ MAINTAINER Matthias Grüter <matthias@grueter.name>
 # To update, check http://guac-dev.org/releases
 ENV GUACAMOLE_VERSION         0.9.9
 ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
-ENV GUACAMOLE_AUTH_MYSQL_SHA1 a68166aec88784325f3358a16dedc70f2df73342
-ENV MYSQL_CONNECTOR_MD5       ad4c875c719247f8e8c41cd7f0609e00
+ENV GUACAMOLE_AUTH_JDBC_SHA1 a09558e46329e3f09ca30783d2e3008c11aae43b
+ENV MYSQL_CONNECTOR_MD5       66f3decda3df6209b87017cd25bdec38
 
 
 ### Guacamole webapp
@@ -24,14 +24,14 @@ RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 
 
 ### Guacamole MySQL auth extension
-# Fetch and install Guacamole MySQL auth extension libs
+# Fetch and install Guacamole JDBC auth extension libs
 RUN mkdir -p /guacamole/classpath
-RUN echo $GUACAMOLE_AUTH_MYSQL_SHA1  guacamole-auth-mysql.tar.gz > guacamole-auth-mysql.tar.gz.sha1 && \
-    curl -L -o guacamole-auth-mysql.tar.gz http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-mysql-0.9.4.tar.gz/download && \
-    sha1sum -c --quiet guacamole-auth-mysql.tar.gz.sha1 && \
-    tar xzf guacamole-auth-mysql.tar.gz && \
-    mv guacamole-auth-mysql-${GUACAMOLE_VERSION}/lib/*.jar /guacamole/classpath && \
-    rm -rf guacamole-auth-mysql*
+RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
+    curl -L -o guacamole-auth-jdbc.tar.gz http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz/download && \
+    sha1sum -c --quiet guacamole-auth-jdbc.tar.gz.sha1 && \
+    tar xzf guacamole-auth-jdbc.tar.gz && \
+    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/*.jar /guacamole/classpath && \
+    rm -rf guacamole-auth-jdbc*
 
 # Fetch and install MySQL connector
 RUN echo $MYSQL_CONNECTOR_MD5  mysql-connector.tar.gz > mysql-connector.tar.gz.md5 && \
