@@ -1,9 +1,9 @@
 FROM debian:jessie
-MAINTAINER Daniel Guerra
+MAINTAINER Matthias Grüter <matthias@grueter.name>
 
 # To update, check http://guac-dev.org/releases
-ENV GUACAMOLE_VERSION         0.9.9
-ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
+ENV GUACAMOLE_VERSION 0.9.9
+ENV GUACAMOLE_SERVER_SHA1 a1ab3bf1e39291e318182b85055587fd98b39de1
 
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -15,7 +15,7 @@ RUN apt-get update && \
 
 
 RUN echo $GUACAMOLE_SERVER_SHA1  guacamole-server.tar.gz > guacamole-server.tar.gz.sha1 && \
-    curl -L -o guacamole-server.tar.gz http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-${GUACAMOLE_VERSION}.tar.gz/download && \
+    curl -L -o guacamole-server.tar.gz http://downloads.sourceforge.net/project/guacamole/current/source/guacamole-server--${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum -c --quiet guacamole-server.tar.gz.sha1 && \
     tar xzf guacamole-server.tar.gz && \
     rm guacamole-server.tar.gz*
