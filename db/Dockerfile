@@ -1,4 +1,4 @@
-FROM dockerfile/mariadb
+FROM mariadb
 MAINTAINER Daniel Guerra
 
 # To update, check http://guac-dev.org/releases
