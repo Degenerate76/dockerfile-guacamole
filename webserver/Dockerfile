@@ -1,5 +1,5 @@
 FROM tomcat:9.0.0-jre8
-MAINTAINER Matthias Grüter <matthias@grueter.name>
+MAINTAINER Daniel Guerra
 
 # To update, check http://guac-dev.org/releases
 ENV GUACAMOLE_VERSION         0.9.9

@@ -1,9 +1,9 @@
 FROM debian:jessie
-MAINTAINER Matthias Grüter <matthias@grueter.name>
+MAINTAINER Daniel Guerra
 
 # To update, check http://guac-dev.org/releases
-ENV GUACAMOLE_VERSION 0.9.4
-ENV GUACAMOLE_SERVER_SHA1 feafdb0714feac9494e3f53a5e3a590fe3d98513
+ENV GUACAMOLE_VERSION         0.9.9
+ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
 
 
 ENV DEBIAN_FRONTEND noninteractive

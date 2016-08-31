@@ -1,19 +1,21 @@
-FROM dockerfile/mariadb 
-MAINTAINER Matthias Grüter <matthias@grueter.name>
+FROM dockerfile/mariadb
+MAINTAINER Daniel Guerra
 
 # To update, check http://guac-dev.org/releases
-ENV GUACAMOLE_VERSION 0.9.4
-ENV GUACAMOLE_AUTH_MYSQL_SHA1 a68166aec88784325f3358a16dedc70f2df73342
+ENV GUACAMOLE_VERSION         0.9.9
+ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
+ENV GUACAMOLE_AUTH_JDBC_SHA1 a09558e46329e3f09ca30783d2e3008c11aae43b
+
 
 COPY create-user.sql /schema/000-create-user.sql
 
-# Fetch and install Guacamole MySQL auth extension.
-RUN echo $GUACAMOLE_AUTH_MYSQL_SHA1  guacamole-auth-mysql.tar.gz > guacamole-auth-mysql.tar.gz.sha1 && \
-    curl -L -o guacamole-auth-mysql.tar.gz http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-mysql-0.9.4.tar.gz/download && \
-    sha1sum -c --quiet guacamole-auth-mysql.tar.gz.sha1 && \
-    tar xzf guacamole-auth-mysql.tar.gz && \
-    mv guacamole-auth-mysql-${GUACAMOLE_VERSION}/schema/*.sql /schema && \
-    rm -rf guacamole-auth-mysql*  
+# Fetch and install Guacamole JDBC auth extension.
+RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
+    curl -L -o guacamole-auth-jdbc.tar.gz http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz/download && \
+    sha1sum -c --quiet guacamole-auth-jdbc.tar.gz.sha1 && \
+    tar xzf guacamole-auth-jdbc.tar.gz && \
+    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/*.jar /guacamole/classpath && \
+    rm -rf guacamole-auth-jdbc*
 
 # Setup database when container is started
 RUN \
