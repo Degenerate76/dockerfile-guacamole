@@ -3,7 +3,7 @@
 Run [Guacamole](http://guac-dev.org/), the clientless remote desktop gateway inside Docker containers.
 
 - Daemon: [danielguerra/guacamole-guacd](https://registry.hub.docker.com/u/danielguerra/guacamole-guacd/)
-- Database backend: [danielguerra/guacamole-db](https://registry.hub.docker.com/u/danielguerra/guacamole-guacd/)
+- Database backend: [danielguerra/guacamole-db](https://registry.hub.docker.com/u/danielguerra/guacamole-db/)
 - Web application: [danielguerra/guacamole-webserver](https://registry.hub.docker.com/u/danielguerra/guacamole-webserver/)
 
 Updated clone from mattgruter https://github.com/mattgruter/dockerfile-guacamole
@@ -21,7 +21,7 @@ The default user is `guacadmin` with password `guacadmin`.
 
 
 ## Docker-compose
-If you use [docker-compose](https://docs.docker.com/compose/) you can bulid and start all containers with:
+If you use [docker-compose](https://docs.docker.com/compose/) you can build and start all containers with:
 
     docker-compose up
 
