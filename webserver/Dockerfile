@@ -45,3 +45,4 @@ RUN echo $MYSQL_CONNECTOR_MD5  mysql-connector.tar.gz > mysql-connector.tar.gz.m
 ### Configuration
 ENV GUACAMOLE_HOME /guacamole
 COPY guacamole.properties ${GUACAMOLE_HOME}/
+EXPOSE 8080
