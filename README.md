@@ -1,6 +1,6 @@
 # Docker images for Guacamole
 
-## Guacamole 0.99 on tomcat 9.0.0-jre8 mysql-connector-java-6.0.2
+## Guacamole 0.99 on tomcat 9.0.0-jre8 mysql-connector-java-5.1.39
 
 Run [Guacamole](http://guac-dev.org/), the clientless remote desktop gateway inside Docker containers.
 
@@ -17,7 +17,7 @@ To run the Guacamole daemon, web application and a database backend for authenti
     docker run -d --name db -e MYSQL_ROOT_PASSWORD=mypass danielguerra/guacamole-db
     docker run -d --name web --link guacd:guacd --link db:db -p 8080:8080 danielguerra/guacamole-webserver
 
-Now point your browser at [http://localhost:8080](http://localhost:8080).
+Now point your browser at [http://dockerhost:8080](http://dockerhost:8080).
 
 The default user is `guacadmin` with password `guacadmin`.
 
@@ -27,7 +27,7 @@ If you use [docker-compose](https://docs.docker.com/compose/) you can build and 
 
     docker-compose up
 
-And point your browser at [http://localhost:8080](http://localhost:8080).
+And point your browser at [http://dockerhost:8080](http://dockerhost:8080).
 
 The default user is `guacadmin` with password `guacadmin`.
 
@@ -40,7 +40,7 @@ Or if you don't want to build the images yourself and use the prebuild images fr
 
     fig -f fig.prod.yml up
 
-And point your browser at [http://localhost:8080](http://localhost:8080).
+And point your browser at [http://dockerhost:8080](http://dockerhost:8080).
 
 The default user is `guacadmin` with password `guacadmin`.
 

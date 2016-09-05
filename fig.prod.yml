@@ -2,6 +2,8 @@ guacd:
   image: danielguerra/guacamole-guacd
 db:
   image: danielguerra/guacamole-db
+  environment:
+    - MYSQL_ROOT_PASSWORD=mypass
 webserver:
   image: danielguerra/guacamole-webserver
   links:
