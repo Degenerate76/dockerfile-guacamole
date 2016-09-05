@@ -13,9 +13,9 @@ Updated clone from mattgruter https://github.com/mattgruter/dockerfile-guacamole
 ## Getting started
 To run the Guacamole daemon, web application and a database backend for authentication do:
 
-    docker run --name guacd danielguerra/guacamole-guacd
-    docker run --name db danielguerra/guacamole-db
-    docker run --link guacd:guacd --link db:db -p 8080:8080 danielguerra/guacamole-webserver
+    docker run -d --name guacd danielguerra/guacamole-guacd
+    docker run -d --name db -e MYSQL_ROOT_PASSWORD=mypass danielguerra/guacamole-db
+    docker run -d --name web --link guacd:guacd --link db:db -p 8080:8080 danielguerra/guacamole-webserver
 
 Now point your browser at [http://localhost:8080](http://localhost:8080).
 
@@ -54,11 +54,11 @@ The guacd default port `4822` is exposed by the image.
 
 
 ## Database backend
-To only run a Guacamole-ready MariaDB server:
+To only run a Guacamole-ready Mysql server:
 
     docker run danielguerra/guacamole-db
 
-The MariaDB server exposes it's default port `3306`.
+The Mysql server exposes it's default port `3306`.
 
 
 ## Web application

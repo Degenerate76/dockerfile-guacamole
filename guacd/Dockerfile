@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Matthias Grüter <matthias@grueter.name>
+MAINTAINER Daniel Guerra
 
 # To update, check http://guac-dev.org/releases
 ENV GUACAMOLE_VERSION 0.9.9
@@ -15,7 +15,7 @@ RUN apt-get update && \
 
 
 RUN echo $GUACAMOLE_SERVER_SHA1  guacamole-server.tar.gz > guacamole-server.tar.gz.sha1 && \
-    curl -L -o guacamole-server.tar.gz http://downloads.sourceforge.net/project/guacamole/current/source/guacamole-server--${GUACAMOLE_VERSION}.tar.gz && \
+    curl -L -o guacamole-server.tar.gz http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-${GUACAMOLE_VERSION}.tar.gz/download && \
     sha1sum -c --quiet guacamole-server.tar.gz.sha1 && \
     tar xzf guacamole-server.tar.gz && \
     rm guacamole-server.tar.gz*

@@ -4,6 +4,8 @@ guacd:
 guadb:
   hostname: guadb
   image: danielguerra/guacamole-db
+  environment:
+    - MYSQL_ROOT_PASSWORD=mypass
 guaweb:
   image: danielguerra/guacamole-webserver
   links:
