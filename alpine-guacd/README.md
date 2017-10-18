@@ -1,5 +1,5 @@
 # Docker images for Guacamole
-Guacamole 0.9.9 on tomcat 9.0.0-jre8 mysql-connector-java-5.1.39
+Guacamole 0.99 on tomcat 9.0.0-jre8 mysql-connector-java-5.1.39
 
 ## Images
 Run [Guacamole](http://guac-dev.org/), the clientless remote desktop gateway inside Docker containers.
