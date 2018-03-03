@@ -15,7 +15,7 @@ RUN rm -rf webapps/*
 
 # Fetch and install Guacamole war archive.
 RUN echo $GUACAMOLE_WAR_SHA1  ROOT.war > webapps/ROOT.war.sha1 && \
-    curl -L -o webapps/ROOT.war http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war && \
+    curl -L -o webapps/ROOT.war https://www.apache.org/dist/guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war && \
     cd webapps && sha1sum ROOT.war.sha1 | cut -d " " -f 1
 
 # Expose tomcat runtime options through the RUNTIME_OPTS environment variable.
@@ -28,7 +28,7 @@ RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 # Fetch and install Guacamole JDBC auth extension libs
 RUN mkdir -p /guacamole/classpath
 RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
-    curl -L -o guacamole-auth-jdbc.tar.gz http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
+    curl -L -o guacamole-auth-jdbc.tar.gz https://www.apache.org/dist/guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum guacamole-auth-jdbc.tar.gz.sha1 | cut -d " " -f 1 && \
     tar xzf guacamole-auth-jdbc.tar.gz && \
     mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgressql/*.jar /guacamole/classpath && \
