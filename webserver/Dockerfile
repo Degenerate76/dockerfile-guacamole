@@ -1,11 +1,12 @@
 FROM tomcat:9.0-jre8-alpine
-MAINTAINER Daniel Guerra
+MAINTAINER Degenerate76
 
-# To update, check http://guac-dev.org/releases
-ENV GUACAMOLE_VERSION         0.9.9
-ENV GUACAMOLE_WAR_SHA1        0ba2ff114ac4221794b148ab0e83370dbc6259c5
-ENV GUACAMOLE_AUTH_JDBC_SHA1  a09558e46329e3f09ca30783d2e3008c11aae43b
-ENV MYSQL_CONNECTOR_MD5       c8988d4fc6e44364a2f51efe5b5139c1
+# To update, check http://guacamole.apache.org/releases and https://jdbc.postgresql.org/download.html
+ENV GUACAMOLE_VERSION          0.9.14
+ENV GUACAMOLE_WAR_SHA1         8831d9720a6a984919dd00f683c114136f35e0f07b33df171714026ecb23d94d
+ENV GUACAMOLE_AUTH_JDBC_SHA1   c7f744fa2fe9644b6a3ea4e4e5c59a33e7603e0eb3610fc27018ed9552a4a476
+ENV POSTGRES_CONNECTOR_VERSION 42.2.1
+ENV POSTGRES_CONNECTOR_SHA1    b7f61848ac43ae9fa6e38935bfd75628b7fc9086
 
 RUN apk add --update curl
 ### Guacamole webapp
@@ -14,7 +15,7 @@ RUN rm -rf webapps/*
 
 # Fetch and install Guacamole war archive.
 RUN echo $GUACAMOLE_WAR_SHA1  ROOT.war > webapps/ROOT.war.sha1 && \
-    curl -L -o webapps/ROOT.war http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-${GUACAMOLE_VERSION}.war/download && \
+    curl -L -o webapps/ROOT.war http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war && \
     cd webapps && sha1sum ROOT.war.sha1 | cut -d " " -f 1
 
 # Expose tomcat runtime options through the RUNTIME_OPTS environment variable.
@@ -23,23 +24,21 @@ RUN echo $GUACAMOLE_WAR_SHA1  ROOT.war > webapps/ROOT.war.sha1 && \
 RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 
 
-### Guacamole MySQL auth extension
+### Guacamole Postgres auth extension
 # Fetch and install Guacamole JDBC auth extension libs
 RUN mkdir -p /guacamole/classpath
 RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
-    curl -L -o guacamole-auth-jdbc.tar.gz http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz/download && \
+    curl -L -o guacamole-auth-jdbc.tar.gz http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum guacamole-auth-jdbc.tar.gz.sha1 | cut -d " " -f 1 && \
     tar xzf guacamole-auth-jdbc.tar.gz && \
-    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/*.jar /guacamole/classpath && \
+    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgressql/*.jar /guacamole/classpath && \
     rm -rf guacamole-auth-jdbc*
 
-# Fetch and install MySQL connector
-RUN echo $MYSQL_CONNECTOR_MD5  mysql-connector.tar.gz > mysql-connector.tar.gz.md5 && \
-    curl -L -o mysql-connector.tar.gz http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.39.tar.gz && \
-    md5sum mysql-connector.tar.gz.md5 | cut -d " " -f 1 && \
-    tar xzf mysql-connector.tar.gz && \
-    mv mysql-connector-java-*/mysql-connector-java-*.jar /guacamole/classpath && \
-    rm -rf mysql-connector*
+# Fetch and install Postgres connector
+RUN echo $POSTGRES_CONNECTOR_SHA1  postgres-connector.jar > postgres-connector.jar.sha1 && \
+    curl -L -o postgres-connector.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRES_CONNECTOR_VERSION}.jar && \
+    sha1sum postgres-connector.jar.sha1 | cut -d " " -f 1 && \
+    mv postgres-connector.jar /guacamole/classpath && \
 
 
 ### Configuration
