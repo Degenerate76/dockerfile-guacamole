@@ -27,7 +27,8 @@ RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 ### Guacamole Postgres auth extension
 # Fetch and install Guacamole JDBC auth extension libs
 RUN mkdir -p /guacamole/extensions && \
-    mkdir -p /guacamole/lib
+    mkdir -p /guacamole/lib && \
+    mkdir -p /guacamole/bin
 RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
     curl -L -o guacamole-auth-jdbc.tar.gz https://www.apache.org/dist/guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum guacamole-auth-jdbc.tar.gz.sha1 | cut -d " " -f 1 && \
@@ -44,5 +45,6 @@ RUN echo $POSTGRES_CONNECTOR_SHA1  postgres-connector.jar > postgres-connector.j
 
 ### Configuration
 ENV GUACAMOLE_HOME /guacamole
-COPY guacamole.properties ${GUACAMOLE_HOME}/
+COPY start.sh ${GUACAMOLE_HOME}/bin/
 EXPOSE 8080
+CMD ["/guacamole/bin/start.sh"]
