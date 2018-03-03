@@ -38,7 +38,7 @@ RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-
 RUN echo $POSTGRES_CONNECTOR_SHA1  postgres-connector.jar > postgres-connector.jar.sha1 && \
     curl -L -o postgres-connector.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRES_CONNECTOR_VERSION}.jar && \
     sha1sum postgres-connector.jar.sha1 | cut -d " " -f 1 && \
-    mv postgres-connector.jar /guacamole/classpath && \
+    mv postgres-connector.jar /guacamole/classpath
 
 
 ### Configuration
