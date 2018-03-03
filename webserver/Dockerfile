@@ -26,19 +26,20 @@ RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 
 ### Guacamole Postgres auth extension
 # Fetch and install Guacamole JDBC auth extension libs
-RUN mkdir -p /guacamole/classpath
+RUN mkdir -p /guacamole/extensions && \
+    mkdir -p /guacamole/lib
 RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-jdbc.tar.gz.sha1 && \
     curl -L -o guacamole-auth-jdbc.tar.gz https://www.apache.org/dist/guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum guacamole-auth-jdbc.tar.gz.sha1 | cut -d " " -f 1 && \
     tar xzf guacamole-auth-jdbc.tar.gz && \
-    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/*.jar /guacamole/classpath && \
+    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/*.jar /guacamole/extensions && \
     rm -rf guacamole-auth-jdbc*
 
 # Fetch and install Postgres connector
 RUN echo $POSTGRES_CONNECTOR_SHA1  postgres-connector.jar > postgres-connector.jar.sha1 && \
     curl -L -o postgres-connector.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRES_CONNECTOR_VERSION}.jar && \
     sha1sum postgres-connector.jar.sha1 | cut -d " " -f 1 && \
-    mv postgres-connector.jar /guacamole/classpath
+    mv postgres-connector.jar /guacamole/lib
 
 
 ### Configuration
