@@ -46,5 +46,6 @@ RUN echo $POSTGRES_CONNECTOR_SHA1  postgres-connector.jar > postgres-connector.j
 ### Configuration
 ENV GUACAMOLE_HOME /guacamole
 COPY start.sh ${GUACAMOLE_HOME}/bin/
+RUN chmod 544 ${GUACAMOLE_HOME}/bin/start.sh
 EXPOSE 8080
 CMD ["/guacamole/bin/start.sh"]
