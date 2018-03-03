@@ -31,7 +31,7 @@ RUN echo $GUACAMOLE_AUTH_JDBC_SHA1  guacamole-auth-jdbc.tar.gz > guacamole-auth-
     curl -L -o guacamole-auth-jdbc.tar.gz https://www.apache.org/dist/guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz && \
     sha1sum guacamole-auth-jdbc.tar.gz.sha1 | cut -d " " -f 1 && \
     tar xzf guacamole-auth-jdbc.tar.gz && \
-    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgressql/*.jar /guacamole/classpath && \
+    mv guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/*.jar /guacamole/classpath && \
     rm -rf guacamole-auth-jdbc*
 
 # Fetch and install Postgres connector
